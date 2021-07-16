@@ -1,0 +1,19 @@
+service: coupon
+env: flex
+runtime: custom
+
+resources:
+  cpu: 1
+  memory_gb: 6
+  disk_size_gb: 10
+
+automatic_scaling:
+  cool_down_period_sec: 180
+  min_num_instances: 1
+  max_num_instances: 5
+  cpu_utilization:
+    target_utilization: 0.7
+  target_concurrent_requests: 100000
+
+env_variables:
+  CO_COM_MELI_COUPON_ITEM_CLIENT_URL: 'https://fresh-geography-319719.rj.r.appspot.com'

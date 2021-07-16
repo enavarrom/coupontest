@@ -42,7 +42,9 @@ _Puede ver el coverage del proyecto en la ruta build/jacocoHtml/index.html_
 
 _El proyecto se encuentra desplegado en GCP mediante archivo de los archivos de configuración de DockerFile y app.yaml_
 ```
-puede probar el proyecto desplegado en https://coupon-dot-fresh-geography-319719.rj.r.appspot.com/swagger-ui/
+El comando de despliegue es: gcloud app deploy, una vez esté ubicado en la ruta del proyecto
+
+NOTA: puede probar el proyecto desplegado en https://coupon-dot-fresh-geography-319719.rj.r.appspot.com/swagger-ui/
 ```
 
 ## Construido con 🛠️
