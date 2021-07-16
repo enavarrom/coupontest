@@ -2,8 +2,16 @@ package co.com.meli.coupon.service.item.impl;
 
 import co.com.meli.coupon.model.item.Item;
 import co.com.meli.coupon.service.integration.ItemFeignClientService;
+import feign.FeignException;
+import feign.FeignException.Forbidden;
+import feign.FeignException.NotFound;
+import feign.Request;
+import feign.Request.Body;
+import feign.Request.HttpMethod;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Optional;
 import org.assertj.core.api.Assertions;
 import org.assertj.core.util.Lists;
 import org.junit.jupiter.api.BeforeEach;
@@ -66,6 +74,41 @@ class ItemServiceImplTest {
     List<String> items = Lists.newArrayList();
     Map<String, Float> mapResult = itemService.getMapItemsPrices(items);
     Assertions.assertThat(mapResult).isEmpty();
+  }
+
+  @Test
+  public void shouldDontReturnItemWhenNotExist() {
+    Request request = Request.create(HttpMethod.GET, "http://localhost:2020", new HashMap<>(),
+        (Body) null, null);
+    FeignException feignException = new NotFound("Nothing", request, null);
+    String itemId = "MLA1";
+
+    Mockito.doThrow(feignException)
+        .when(itemFeignClientService)
+        .getItem(itemId);
+
+    Optional<Item> item = itemService.findById(itemId);
+
+    Assertions.assertThat(item).isNotPresent();
+  }
+
+  @Test()
+  public void shouldThrowExceptionWhenFindByIdErrorTest() {
+    Request request = Request.create(HttpMethod.GET, "http://localhost:2020", new HashMap<>(),
+        (Body) null, null);
+    FeignException feignException = new Forbidden("Nothing", request, null);
+    String itemId = "MLA1";
+
+    Mockito.doThrow(feignException)
+        .when(itemFeignClientService)
+        .getItem(itemId);
+
+    try {
+      itemService.findById(itemId);
+    }
+    catch (Exception e) {
+      Assertions.assertThat(e).isEqualTo(feignException);
+    }
   }
 
 

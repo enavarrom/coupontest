@@ -7,6 +7,7 @@ import co.com.meli.coupon.service.coupon.CouponService;
 import co.com.meli.coupon.service.item.ItemService;
 import java.util.List;
 import java.util.Map;
+import java.util.stream.Collectors;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.util.CollectionUtils;
@@ -42,7 +43,7 @@ public class CouponControllerImpl implements CouponController {
       return ResponseEntity.ok(
           CouponResponseResource
           .builder()
-              .item_ids(itemsCoupon)
+              .item_ids(itemsCoupon.stream().sorted().collect(Collectors.toList()))
               .total(total)
               .build()
       );

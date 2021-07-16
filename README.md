@@ -40,7 +40,10 @@ _Puede ver el coverage del proyecto en la ruta build/jacocoHtml/index.html_
 
 ## Despliegue 📦
 
-_Agrega notas adicionales sobre como hacer deploy_
+_El proyecto se encuentra desplegado en GCP mediante archivo de los archivos de configuración de DockerFile y app.yaml_
+```
+puede probar el proyecto desplegado en https://coupon-dot-fresh-geography-319719.rj.r.appspot.com/swagger-ui/
+```
 
 ## Construido con 🛠️
 
